@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/zwindler/tifling/pkg/embedjson"
+)
 
 func main() {
-	fmt.Println("toto")
+	fmt.Println(embedjson.EmptyResult)
 }

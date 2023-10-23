@@ -46,7 +46,7 @@ var (
 // GetDataFromJSON extracts data from json/coiffeurs.json and put it in a data struct
 func GetDataFromJSON() (data MainData, err error) {
 	// Read the embedded JSON file
-	file, err := EmbeddedJSON.Open("json/coiffeurs-small.json")
+	file, err := EmbeddedJSON.Open("json/coiffeurs.json")
 	if err != nil {
 		return EmptyResult, fmt.Errorf("error opening embedded JSON: %w", err)
 	}

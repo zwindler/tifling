@@ -32,17 +32,21 @@ type Data struct {
 	Features []Feature `json:"features"`
 }
 
+type MainData struct {
+	Data Data `json:"data"`
+}
+
 var (
 	//go:embed json/*
 	EmbeddedJSON embed.FS
 
-	EmptyResult = Feature{}
+	EmptyResult = MainData{}
 )
 
-// GetDataFromJSON
-func GetDataFromJSON(path string) (feat Feature, err error) {
+// GetDataFromJSON extracts data from json/coiffeurs.json and put it in a data struct
+func GetDataFromJSON() (data MainData, err error) {
 	// Read the embedded JSON file
-	file, err := EmbeddedJSON.Open(path)
+	file, err := EmbeddedJSON.Open("json/coiffeurs-small.json")
 	if err != nil {
 		return EmptyResult, fmt.Errorf("error opening embedded JSON: %w", err)
 	}
@@ -54,9 +58,9 @@ func GetDataFromJSON(path string) (feat Feature, err error) {
 
 	// Decode the JSON from the file into the matrix variable
 	decoder := json.NewDecoder(file)
-	if err := decoder.Decode(&feat); err != nil {
+	if err := decoder.Decode(&data); err != nil {
 		return EmptyResult, fmt.Errorf("error decoding embedded JSON: %w", err)
 	}
 
-	return feat, nil
+	return data, nil
 }

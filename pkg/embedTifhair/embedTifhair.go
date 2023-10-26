@@ -6,24 +6,28 @@ import (
 	"fmt"
 )
 
+type Properties struct {
+	Nom             string  `json:"nom"`
+	Lat             float64 `json:"lat"`
+	Lng             float64 `json:"lng"`
+	Num             string  `json:"num"`
+	Voie            string  `json:"voie"`
+	Ville           string  `json:"ville"`
+	CodePostal      string  `json:"codepostal"`
+	MarkerInnerHTML string  `json:"markerinnerhtml"`
+	LiInnerHTML     string  `json:"liinnerhtml"`
+	Addresse        string  `json:"addresse"`
+}
+
+type Geometry struct {
+	Type        string    `json:"type"`
+	Coordinates []float64 `json:"coordinates"`
+}
+
 type Feature struct {
-	Type       string `json:"type"`
-	Properties struct {
-		Nom             string  `json:"nom"`
-		Lat             float64 `json:"lat"`
-		Lng             float64 `json:"lng"`
-		Num             string  `json:"num"`
-		Voie            string  `json:"voie"`
-		Ville           string  `json:"ville"`
-		CodePostal      string  `json:"codepostal"`
-		MarkerInnerHTML string  `json:"markerinnerhtml"`
-		LiInnerHTML     string  `json:"liinnerhtml"`
-		Addresse        string  `json:"addresse"`
-	} `json:"properties"`
-	Geometry struct {
-		Type        string    `json:"type"`
-		Coordinates []float64 `json:"coordinates"`
-	} `json:"geometry"`
+	Type       string     `json:"type"`
+	Properties Properties `json:"properties"`
+	Geometry   Geometry   `json:"geometry"`
 }
 
 type Data struct {
@@ -44,9 +48,9 @@ var (
 )
 
 // GetDataFromJSON extracts data from json/coiffeurs.json and put it in a data struct
-func GetDataFromJSON() (data MainData, err error) {
+func GetDataFromJSON(path string) (data MainData, err error) {
 	// Read the embedded JSON file
-	file, err := EmbeddedJSON.Open("json/coiffeurs.json")
+	file, err := EmbeddedJSON.Open(path)
 	if err != nil {
 		return EmptyResult, fmt.Errorf("error opening embedded JSON: %w", err)
 	}

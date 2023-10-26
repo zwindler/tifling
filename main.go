@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	data, err := embedTifhair.GetDataFromJSON()
+	data, err := embedTifhair.GetDataFromJSON("json/coiffeurs.json")
 	if err != nil {
 		panic(err)
 	}

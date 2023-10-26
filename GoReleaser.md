@@ -94,11 +94,50 @@ Section before.hooks will allow us to do some things before building, just like 
 
 Note: there are many variables and they will be super useful in many usecases. 
 
-Let's now commit our new .goreleaser.yml file, add a git tag and try to run goreleaser.
+Let's now commit our new .goreleaser.yml file, add a git tag:
 
 ```
 git add .
 git commit -m "add simplest goreleaser example"
 git tag -a 0.0.1 -m "simplest goreleaser example"
 git push origin 0.0.1
+```
+
+And then run goreleaser
+
+```
+$ goreleaser build --clean
+  • starting build...
+  • loading                                          path=.goreleaser.yaml
+  • loading environment variables
+  • getting and validating git state
+    • couldn't find any tags before "0.0.1"
+    • git state                                      commit=2778c1e356e1b474ca9fe3081e450a3bd8a430e3 branch=main current_tag=0.0.1 previous_tag=<unknown> dirty=false
+  • parsing tag
+  • setting defaults
+  • running before hooks
+    • running                                        hook=go mod tidy
+  • checking distribution directory
+  • loading go mod information
+  • build prerequisites
+  • writing effective config file
+    • writing                                        config=dist/config.yaml
+  • building binaries
+    • building                                       binary=dist/tifling_linux_amd64_v1/bin/tifling
+  • storing release metadata
+    • writing                                        file=dist/artifacts.json
+    • writing                                        file=dist/metadata.json
+  • build succeeded after 0s
+  • thanks for using goreleaser!
+```
+
+We can now check if our binary is functionnal:
+
+```
+$ dist/tifling_linux_amd64_v1/bin/tifling
+## tifling version =0.0.1
+
+Random Entry:
+- Name: Coiff'hair
+- Latitude/Longitude: 48.556123 -2.019321
 ```

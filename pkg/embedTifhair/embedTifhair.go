@@ -1,4 +1,4 @@
-package embedjson
+package embedTifhair
 
 import (
 	"embed"

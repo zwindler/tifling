@@ -5,11 +5,11 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/zwindler/tifling/pkg/embedjson"
+	"github.com/zwindler/tifling/pkg/embedTifhair"
 )
 
 func main() {
-	data, err := embedjson.GetDataFromJSON()
+	data, err := embedTifhair.GetDataFromJSON()
 	if err != nil {
 		panic(err)
 	}

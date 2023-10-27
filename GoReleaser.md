@@ -97,10 +97,10 @@ Note: there are many variables and they will be super useful in many usecases.
 Let's now commit our new .goreleaser.yml file, add a git tag:
 
 ```
-git add .
-git commit -m "add simplest goreleaser example"
-git tag -a 0.0.1 -m "simplest goreleaser example"
-git push origin 0.0.1
+$ git add .
+$ git commit -m "add simplest goreleaser example"
+$ git tag -a 0.0.1 -m "simplest goreleaser example"
+$ git push origin 0.0.1
 ```
 
 And then run goreleaser
@@ -189,8 +189,19 @@ builds:
 If we try to run goreleaser again, we will build much our binary for many more targets out of the box, which the need to write a loop in the Makefile or in a script:
 
 ```
-git add .
-git commit -m "goreleaser add more targets"
-git tag -a 0.0.2 -m "goreleaser add more targets"
-git push origin 0.0.2
+$ git add .
+$ git commit -m "goreleaser add more targets"
+$ git tag -a 0.0.2 -m "goreleaser add more targets"
+$ git push origin 0.0.2
+
+$ goreleaser build --clean
+[...]
+
+$ ls dist
+artifacts.json  tifling_darwin_amd64_v1  tifling_linux_amd64_v1  tifling_windows_amd64_v1
+config.yaml     tifling_darwin_arm64     tifling_linux_arm64     tifling_windows_arm64
+metadata.json   tifling_linux_386        tifling_windows_386
 ```
+
+## 3. Push it somewhere
+

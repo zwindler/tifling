@@ -131,7 +131,7 @@ $ goreleaser build --clean
   • thanks for using goreleaser!
 ```
 
-We can now check if our binary is functionnal:
+We can now check if our binary is functional, and version is automatically set by goreleaser using the git tag:
 
 ```
 $ dist/tifling_linux_amd64_v1/bin/tifling
@@ -140,4 +140,15 @@ $ dist/tifling_linux_amd64_v1/bin/tifling
 Random Entry:
 - Name: Coiff'hair
 - Latitude/Longitude: 48.556123 -2.019321
+```
+
+Should we try to execute goreleaser without tagging a branch first, we will get an error:
+
+```
+  ⨯ build failed after 0s                    error=git is in a dirty state
+```
+
+or 
+
+```
 ```

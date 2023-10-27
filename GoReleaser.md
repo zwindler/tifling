@@ -151,4 +151,46 @@ Should we try to execute goreleaser without tagging a branch first, we will get 
 or 
 
 ```
+  ⨯ build failed after 0s                    error=git tag 0.0.1 was not made against commit 4a03b27dd1369cbeb2451d362493756fc90d7d48
+```
+
+This is normal, goreleaser relies on tags to work. In case we really want to use goreleaser and not tag the code, we call use the `--snapshot` option. This will be useful for snapshot/nightly releases for example:
+
+```
+$ goreleaser build --clean --snapshot
+[...]
+  • snapshotting
+    • building snapshot...                           version=0.0.1-SNAPSHOT-4a03b27
+[...]
+
+$ dist/tifling_linux_amd64_v1/bin/tifling
+## tifling version =0.0.1-SNAPSHOT-4a03b27
+```
+
+## 2. crossbuild
+
+Now that we reproduced the basic functionality of the initial Makefile, we can try to go further.
+
+Rather than limiting our build to amd64 on linux only, we can remove the `goos` and `goarch` sections completely to tell goreleaser to crossbuild to the most common archs. We also can keep those and explicitly define those we want.
+
+```yaml
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - binary: bin/tifling
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -X main.Version=={{.Version}}
+```
+
+If we try to run goreleaser again, we will build much our binary for many more targets out of the box, which the need to write a loop in the Makefile or in a script:
+
+```
+git add .
+git commit -m "goreleaser add more targets"
+git tag -a 0.0.2 -m "goreleaser add more targets"
+git push origin 0.0.2
 ```
